@@ -2,7 +2,7 @@
 import requests
 token = '59402b28f1730f82897d3e78666c0eba'
 tokendict = {'token': token}
-'''
+
 start = {'token' : '59402b28f1730f82897d3e78666c0eba', 'github': 'https://github.com/jmiguel19/Code2040.git'}
 req = requests.post('http://challenge.code2040.org/api/register', start)
 
@@ -22,7 +22,7 @@ for num in range(len(startreq.json()['haystack'])):
 		break
 req3json = {'token': '59402b28f1730f82897d3e78666c0eba', 'needle': output}
 req3 = requests.post('http://challenge.code2040.org/api/haystack/validate', req3json)
-'''
+
 #step4
 prefixdict = requests.post('http://challenge.code2040.org/api/prefix', tokendict)
 prefix = prefixdict.json()['prefix']
@@ -43,9 +43,9 @@ print prefix
 print stringarray
 print output4
 req4json = {'token': token, 'array': output4}
-requests.post('http://challenge.code2040.org/api/prefix/validate', json=req4json)
+req4 = requests.post('http://challenge.code2040.org/api/prefix/validate', json=req4json)
 
-'''
+
 #step5
 token = '59402b28f1730f82897d3e78666c0eba'
 tokendict = {'token': token}
