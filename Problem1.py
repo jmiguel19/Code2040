@@ -3,24 +3,24 @@ import requests
 token = '59402b28f1730f82897d3e78666c0eba'
 tokendict = {'token': token}
 
-start = {'token' : '59402b28f1730f82897d3e78666c0eba', 'github': 'https://github.com/jmiguel19/Code2040.git'}
+start = {'token' : token, 'github': 'https://github.com/jmiguel19/Code2040.git'}
 req = requests.post('http://challenge.code2040.org/api/register', start)
 
 #step2
-reverse = requests.post('http://challenge.code2040.org/api/reverse', start)
+reverse = requests.post('http://challenge.code2040.org/api/reverse', tokendict)
 output = ''
 for letter in reverse.content[::-1]:
 	output += letter
-newjson = {'token':'59402b28f1730f82897d3e78666c0eba', 'string':output}
+newjson = {'token':token, 'string':output}
 req2 = requests.post('http://challenge.code2040.org/api/reverse/validate', newjson)
 
 #step3
-startreq = requests.post('http://challenge.code2040.org/api/haystack', start)
+startreq = requests.post('http://challenge.code2040.org/api/haystack', tokendict)
 for num in range(len(startreq.json()['haystack'])):
 	if startreq.json()['haystack'][num] == startreq.json()['needle']:
 		output = num
 		break
-req3json = {'token': '59402b28f1730f82897d3e78666c0eba', 'needle': output}
+req3json = {'token': token, 'needle': output}
 req3 = requests.post('http://challenge.code2040.org/api/haystack/validate', req3json)
 
 #step4
@@ -39,16 +39,11 @@ for s in stringarray:
 		letter_index += 1
 	if not found:
 		output4.append(s)
-print prefix
-print stringarray
-print output4
 req4json = {'token': token, 'array': output4}
 req4 = requests.post('http://challenge.code2040.org/api/prefix/validate', json=req4json)
 
 
 #step5
-token = '59402b28f1730f82897d3e78666c0eba'
-tokendict = {'token': token}
 step5 = requests.post('http://challenge.code2040.org/api/dating', tokendict)
 step5dict = step5.json()
 stampsecs = int(step5dict['datestamp'][17:19])
